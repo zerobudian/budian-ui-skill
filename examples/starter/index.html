@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>页面标题 — 产品名</title>
+  <meta name="description" content="一句话描述这个页面。">
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f3f5f8">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#050609">
+  <script>
+    /* Budian UI no-flash theme bootstrap — keep inline, before stylesheets. */
+    (function () {
+      var t = null;
+      try { t = localStorage.getItem("budian-theme"); } catch (e) {}
+      if (t !== "light" && t !== "dark") {
+        t = matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+      }
+      document.documentElement.dataset.theme = t;
+    })();
+  </script>
+  <!-- In your project, copy tokens/tokens.css into your assets and adjust paths. -->
+  <link rel="stylesheet" href="../../tokens/tokens.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip" href="#main" data-i18n="a11y.skip">跳到主要内容</a>
+
+  <header class="topbar">
+    <div class="shell topbar__inner">
+      <a class="brand" href="#">
+        <span class="brand__mark" aria-hidden="true">A</span>
+        <span class="brand__name">产品名</span>
+      </a>
+      <nav class="topnav" aria-label="主导航">
+        <a href="#features" data-i18n="nav.features">功能</a>
+        <a href="#cta" data-i18n="nav.cta">开始</a>
+      </nav>
+      <div class="topbar__actions">
+        <button class="icon-btn" type="button" data-budian-theme-toggle
+                data-i18n-attr="aria-label:a11y.themeDark" aria-pressed="false">
+          <svg class="icon icon--moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
+          <svg class="icon icon--sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        </button>
+        <button class="icon-btn icon-btn--text" type="button" data-budian-locale-toggle
+                aria-label="Switch to English" lang="en">EN</button>
+        <a class="btn btn--solid btn--sm" href="#cta" data-i18n="nav.ctaBtn">免费开始</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero">
+      <div class="shell">
+        <p class="kicker reveal"><span class="kicker__dot" aria-hidden="true"></span><span data-i18n="hero.kicker">STATUS · 运行中</span></p>
+        <h1 class="display reveal" style="--d:1">
+          <span data-i18n="hero.titleA">第一行陈述,</span>
+          <span class="display__line--gradient" data-i18n="hero.titleB">第二行渐变收尾。</span>
+        </h1>
+        <p class="lede reveal" style="--d:2" data-i18n="hero.lede">用两三句话说清这个产品为谁解决什么问题。保持安静、具体、可验证。</p>
+      </div>
+    </section>
+
+    <section class="section" id="features">
+      <div class="shell">
+        <header class="section-head reveal">
+          <div>
+            <p class="kicker" data-i18n="features.kicker">FEATURES / 01</p>
+            <h2 class="title" data-i18n="features.title">它做了什么</h2>
+          </div>
+        </header>
+        <div class="rows">
+          <div class="row reveal" style="--card-accent: var(--budian-raw-cyan); --d:1">
+            <span class="tile" aria-hidden="true">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M3 10h18M7 15h4"/></svg>
+            </span>
+            <span class="row__body">
+              <strong data-i18n="features.f1.name">能力一</strong>
+              <small data-i18n="features.f1.desc">一句话说明,别写营销词。</small>
+            </span>
+          </div>
+          <div class="row reveal" style="--card-accent: var(--budian-raw-green); --d:2">
+            <span class="tile" aria-hidden="true">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 7 3-3 3 3M8 4v16"/><path d="m13 17 3 3 3-3M16 20V4"/></svg>
+            </span>
+            <span class="row__body">
+              <strong data-i18n="features.f2.name">能力二</strong>
+              <small data-i18n="features.f2.desc">一句话说明,别写营销词。</small>
+            </span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="cta">
+      <div class="shell">
+        <h2 class="title reveal" data-i18n="cta.title">准备好了吗?</h2>
+        <p class="lede reveal" style="--d:1" data-i18n="cta.lede">一个行动,一个按钮,别给用户选择题。</p>
+        <a class="btn btn--solid reveal" style="--d:2" href="#" data-i18n="cta.btn">开始使用</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="shell footer__inner">
+      <p class="mono-note">© 2026 产品名 · <span data-i18n="footer.note">由 Budian UI 构建</span></p>
+    </div>
+  </footer>
+
+  <script src="../assets/budian.js" defer></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      Budian.init({
+        messages: {
+          "zh-CN": {
+            "meta.title": "页面标题 — 产品名",
+            "a11y.skip": "跳到主要内容",
+            "a11y.themeDark": "切换到深色模式",
+            "a11y.themeLight": "切换到浅色模式",
+            "nav.features": "功能", "nav.cta": "开始", "nav.ctaBtn": "免费开始",
+            "hero.kicker": "STATUS · 运行中",
+            "hero.titleA": "第一行陈述,",
+            "hero.titleB": "第二行渐变收尾。",
+            "hero.lede": "用两三句话说清这个产品为谁解决什么问题。保持安静、具体、可验证。",
+            "features.kicker": "FEATURES / 01",
+            "features.title": "它做了什么",
+            "features.f1.name": "能力一", "features.f1.desc": "一句话说明,别写营销词。",
+            "features.f2.name": "能力二", "features.f2.desc": "一句话说明,别写营销词。",
+            "cta.title": "准备好了吗?",
+            "cta.lede": "一个行动,一个按钮,别给用户选择题。",
+            "cta.btn": "开始使用",
+            "footer.note": "由 Budian UI 构建"
+          },
+          "en": {
+            "meta.title": "Page title — Product",
+            "a11y.skip": "Skip to main content",
+            "a11y.themeDark": "Switch to dark mode",
+            "a11y.themeLight": "Switch to light mode",
+            "nav.features": "Features", "nav.cta": "Start", "nav.ctaBtn": "Start free",
+            "hero.kicker": "STATUS · LIVE",
+            "hero.titleA": "One plain statement,",
+            "hero.titleB": "one gradient close.",
+            "hero.lede": "Two or three sentences on who this serves and what it fixes. Stay quiet, concrete, verifiable.",
+            "features.kicker": "FEATURES / 01",
+            "features.title": "What it does",
+            "features.f1.name": "Capability one", "features.f1.desc": "One sentence, no marketing words.",
+            "features.f2.name": "Capability two", "features.f2.desc": "One sentence, no marketing words.",
+            "cta.title": "Ready?",
+            "cta.lede": "One action, one button. Never a multiple choice.",
+            "cta.btn": "Get started",
+            "footer.note": "Built with Budian UI"
+          }
+        }
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Budian UI — 示例索引</title>
+  <meta name="description" content="Budian UI 的可运行示例:landing、dashboard、docs、components 与 starter。">
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f3f5f8">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#050609">
+  <script>
+    (function () {
+      var t = null;
+      try { t = localStorage.getItem("budian-theme"); } catch (e) {}
+      if (t !== "light" && t !== "dark") {
+        t = matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+      }
+      document.documentElement.dataset.theme = t;
+    })();
+  </script>
+  <link rel="stylesheet" href="../tokens/tokens.css">
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; background: var(--budian-bg); color: var(--budian-text-primary);
+      font-family: var(--budian-font-sans); font-size: var(--budian-text-body-size);
+      line-height: var(--budian-text-body-lh); -webkit-font-smoothing: antialiased;
+      min-height: 100svh; display: grid; place-items: center; padding: var(--budian-space-10) var(--budian-space-4);
+    }
+    a { color: inherit; text-decoration: none; }
+    .card { width: min(720px, 100%); display: grid; gap: var(--budian-space-3); }
+    h1 { margin: 0 0 var(--budian-space-2); font-size: 28px; letter-spacing: -.03em; font-weight: 780; }
+    p.lede { margin: 0 0 var(--budian-space-4); color: var(--budian-text-muted); max-width: 56ch; }
+    .kicker {
+      font-family: var(--budian-font-mono); font-size: var(--budian-kicker-size);
+      font-weight: var(--budian-kicker-weight); letter-spacing: var(--budian-kicker-tracking);
+      text-transform: uppercase; color: var(--budian-accent); margin: 0;
+    }
+    .row {
+      display: grid; grid-template-columns: 42px minmax(0, 1fr) 24px; gap: var(--budian-space-4);
+      align-items: center; min-height: 88px; padding: var(--budian-space-4) var(--budian-space-5);
+      border: 1px solid var(--budian-border); border-radius: var(--budian-radius-lg);
+      background: var(--budian-surface); backdrop-filter: blur(var(--budian-blur-md));
+      -webkit-backdrop-filter: blur(var(--budian-blur-md));
+      transition: transform var(--budian-motion-normal) var(--budian-ease-standard),
+                  border-color var(--budian-motion-normal) var(--budian-ease-standard);
+    }
+    .row:hover { transform: translateY(-2px); border-color: color-mix(in srgb, var(--card-accent, var(--budian-accent)) 35%, var(--budian-border)); }
+    .row .tile {
+      display: grid; place-items: center; width: 42px; height: 42px; border-radius: 13px;
+      color: var(--card-accent, var(--budian-accent));
+      background: color-mix(in srgb, var(--card-accent, var(--budian-accent)) 9%, transparent);
+      border: 1px solid color-mix(in srgb, var(--card-accent, var(--budian-accent)) 17%, transparent);
+      font-family: var(--budian-font-mono); font-size: 13px; font-weight: 700;
+    }
+    .row b { display: block; font-size: 16px; font-weight: 650; }
+    .row small { color: var(--budian-text-muted); font-size: 13px; }
+    .row code { font-family: var(--budian-font-mono); font-size: 10px; letter-spacing: .1em; color: var(--budian-text-muted); display: block; margin-top: 4px; }
+    .go { color: var(--budian-text-muted); font-family: var(--budian-font-mono); }
+    footer { margin-top: var(--budian-space-6); font-family: var(--budian-font-mono); font-size: 11px; letter-spacing: .12em; color: var(--budian-text-muted); }
+    :focus-visible { outline: var(--budian-focus-width) solid var(--budian-ring); outline-offset: var(--budian-focus-offset); border-radius: var(--budian-radius-sm); }
+    .skip {
+      position: fixed; top: var(--budian-space-2); left: var(--budian-space-2);
+      z-index: var(--budian-z-skip);
+      padding: var(--budian-space-2) var(--budian-space-4);
+      border-radius: var(--budian-radius-sm);
+      background: var(--budian-surface-strong);
+      border: 1px solid var(--budian-border-strong);
+      transform: translateY(-200%);
+    }
+    .skip:focus-visible { transform: none; }
+  </style>
+</head>
+<body>
+  <a class="skip" href="#examples">跳到示例列表</a>
+  <main class="card" id="examples">
+    <p class="kicker">BUDIAN UI · EXAMPLES</p>
+    <h1>可运行示例</h1>
+    <p class="lede">每个示例都是独立可打开的静态页面,同时作为模式的活参考。直接双击 index.html 即可运行。</p>
+
+    <a class="row" style="--card-accent: var(--budian-raw-cyan)" href="landing/">
+      <span class="tile" aria-hidden="true">L</span>
+      <span><b>Landing — 潮池 Tidepool</b><small>编辑索引模式:超大标题、行卡网格、指标与页脚。</small><code>EDITORIAL INDEX</code></span>
+      <span class="go" aria-hidden="true">-&gt;</span>
+    </a>
+    <a class="row" style="--card-accent: var(--budian-raw-green)" href="dashboard/">
+      <span class="tile" aria-hidden="true">D</span>
+      <span><b>Dashboard — 信风 Tradewind</b><small>工作台模式:侧栏、指标行、柱状图、表格与设置对话框。</small><code>WORKBENCH</code></span>
+      <span class="go" aria-hidden="true">-&gt;</span>
+    </a>
+    <a class="row" style="--card-accent: var(--budian-raw-violet)" href="docs/">
+      <span class="tile" aria-hidden="true">C</span>
+      <span><b>Docs — 玻璃房 Glasshouse</b><small>文档模式:目录侧栏、正文栏、代码块、提示框与上下页。</small><code>DOCUMENTATION</code></span>
+      <span class="go" aria-hidden="true">-&gt;</span>
+    </a>
+    <a class="row" style="--card-accent: var(--budian-raw-amber)" href="components/">
+      <span class="tile" aria-hidden="true">◎</span>
+      <span><b>Components — 组件参考</b><small>全部核心组件的可交互展示:按钮、卡片、表单、标签页、浮层等。</small><code>COMPONENT GALLERY</code></span>
+      <span class="go" aria-hidden="true">-&gt;</span>
+    </a>
+    <a class="row" style="--card-accent: var(--budian-raw-blue)" href="starter/">
+      <span class="tile" aria-hidden="true">S</span>
+      <span><b>Starter — 起点模板</b><small>最小可用页面骨架,复制后改内容即可。</small><code>COPY ME FIRST</code></span>
+      <span class="go" aria-hidden="true">-&gt;</span>
+    </a>
+
+    <footer>BUDIAN UI v1.0.0 · ZERO DEPENDENCIES · OPEN index.html DIRECTLY</footer>
+  </main>
+</body>
+</html>

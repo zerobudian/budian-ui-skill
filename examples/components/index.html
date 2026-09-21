@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Budian UI — 组件参考</title>
+  <meta name="description" content="Budian UI 核心组件的活参考:按钮、卡片、输入、标签页、对话框、提示、代码块、表格与状态。">
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f3f5f8">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#050609">
+  <script>
+    (function () {
+      var t = null;
+      try { t = localStorage.getItem("budian-theme"); } catch (e) {}
+      if (t !== "light" && t !== "dark") {
+        t = matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+      }
+      document.documentElement.dataset.theme = t;
+    })();
+  </script>
+  <link rel="stylesheet" href="../../tokens/tokens.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip" href="#main" data-i18n="a11y.skip">跳到主要内容</a>
+
+  <header class="topbar">
+    <div class="shell topbar__inner">
+      <a class="brand" href="#">
+        <span class="brand__mark" aria-hidden="true">布</span>
+        <span class="brand__name">Budian UI<b data-i18n="brand.sub">组件参考</b></span>
+      </a>
+      <div class="topbar__actions">
+        <button class="icon-btn" type="button" data-budian-theme-toggle data-i18n-attr="aria-label:a11y.themeDark" aria-pressed="false">
+          <svg class="icon icon--moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
+          <svg class="icon icon--sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        </button>
+        <button class="icon-btn icon-btn--text" type="button" data-budian-locale-toggle aria-label="Switch to English" lang="en">EN</button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main" class="shell content">
+
+    <header class="page-head reveal">
+      <p class="kicker">COMPONENTS</p>
+      <h1 class="title" data-i18n="page.title">核心组件</h1>
+      <p class="lede" data-i18n="page.lede">Budian UI 的全部核心组件,直接在本页可交互。切换主题与语言,检查每个组件在两种外观、两种语言下的表现。</p>
+    </header>
+
+    <!-- ============ Buttons ============ -->
+    <section class="demo reveal" aria-labelledby="demo-buttons">
+      <h2 id="demo-buttons" data-i18n="c.buttons.title">按钮</h2>
+      <div class="demo__stage">
+        <div class="cluster">
+          <button class="btn btn--solid" type="button" data-i18n="c.primary">主要操作</button>
+          <button class="btn btn--ghost" type="button" data-i18n="c.secondary">次要操作</button>
+          <button class="btn btn--text" type="button" data-i18n="c.text">文本按钮</button>
+          <button class="btn btn--solid" type="button" disabled data-i18n="c.disabled">已禁用</button>
+          <button class="btn btn--ghost" type="button" data-budian-demo="loading">
+            <span class="spinner" aria-hidden="true"></span><span data-i18n="c.loading">加载中</span>
+          </button>
+        </div>
+        <div class="cluster">
+          <button class="icon-btn" type="button" aria-label="添加">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+          </button>
+          <button class="icon-btn" type="button" aria-label="更多">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg>
+          </button>
+          <button class="icon-btn icon-btn--text" type="button" aria-label="切换语言" lang="en">EN</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ Cards ============ -->
+    <section class="demo reveal" aria-labelledby="demo-cards">
+      <h2 id="demo-cards" data-i18n="c.cards.title">卡片</h2>
+      <div class="demo__stage demo__stage--grid">
+        <div class="card" style="--card-accent: var(--budian-raw-cyan)">
+          <span class="tile" aria-hidden="true">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M3 10h18M7 15h4"/></svg>
+          </span>
+          <div class="card__body">
+            <strong data-i18n="c.card.a">功能卡片</strong>
+            <small data-i18n="c.card.aDesc">图标、标题、描述与元信息,悬停时上浮并点亮边框。</small>
+            <small class="mono-note">HOVER ME</small>
+          </div>
+        </div>
+        <div class="stat">
+          <span class="mono-note" data-i18n="c.stat.label">月度请求</span>
+          <strong class="stat__value"><span data-count="2840000">0</span></strong>
+          <div class="progress" role="progressbar" aria-valuenow="72" aria-valuemin="0" aria-valuemax="100" aria-label="配额使用">
+            <div class="progress__fill" style="--p: 72"></div>
+          </div>
+          <small class="mono-note">72% <span data-i18n="c.stat.quota">配额已用</span></small>
+        </div>
+        <div class="empty">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 16V7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v9"/><path d="M4 16h16v1a3 3 0 0 1-3 3H7a3 3 0 0 1-3-3v-1Z"/></svg>
+          <p data-i18n="c.empty">还没有任何部署</p>
+          <button class="btn btn--ghost btn--sm" type="button" data-i18n="c.emptyCta">创建第一个</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ Badges & status ============ -->
+    <section class="demo reveal" aria-labelledby="demo-badges">
+      <h2 id="demo-badges" data-i18n="c.badges.title">徽章与状态</h2>
+      <div class="demo__stage">
+        <div class="cluster">
+          <span class="badge badge--ok" data-i18n="c.st.ok">正常</span>
+          <span class="badge badge--warn" data-i18n="c.st.warn">观察</span>
+          <span class="badge badge--danger" data-i18n="c.st.danger">故障</span>
+          <span class="badge badge--neutral">BETA</span>
+          <span class="pill">v1.0.0</span>
+        </div>
+        <div class="cluster">
+          <span class="status status--ok" data-i18n="c.live">在线服务</span>
+          <span class="status status--warn" data-i18n="c.degraded">降级运行</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ Inputs ============ -->
+    <section class="demo reveal" aria-labelledby="demo-inputs">
+      <h2 id="demo-inputs" data-i18n="c.inputs.title">表单</h2>
+      <div class="demo__stage demo__stage--grid">
+        <div class="field">
+          <label for="in-name" data-i18n="c.f.name">项目名称</label>
+          <input class="input" id="in-name" type="text" placeholder="glasshouse" data-i18n-attr="placeholder:c.f.namePh">
+        </div>
+        <div class="field">
+          <label for="in-region" data-i18n="c.f.region">部署区域</label>
+          <select class="input" id="in-region">
+            <option data-i18n="c.f.r1">华东(杭州)</option>
+            <option data-i18n="c.f.r2">西欧(牛津)</option>
+            <option data-i18n="c.f.r3">北美(达拉斯)</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="in-notes" data-i18n="c.f.notes">备注</label>
+          <textarea class="input input--area" id="in-notes" rows="3" data-i18n-attr="placeholder:c.f.notesPh" placeholder="可选"></textarea>
+        </div>
+        <div class="field">
+          <span class="field__label" data-i18n="c.f.mode">构建模式</span>
+          <div class="cluster">
+            <label class="check"><input type="checkbox" checked><span data-i18n="c.f.minify">压缩产物</span></label>
+            <label class="check"><input type="checkbox"><span data-i18n="c.f.ssg">预渲染</span></label>
+          </div>
+          <div class="cluster">
+            <label class="check"><input type="radio" name="env" checked><span data-i18n="c.f.prod">生产</span></label>
+            <label class="check"><input type="radio" name="env"><span data-i18n="c.f.dev">预发</span></label>
+          </div>
+          <div class="cluster">
+            <label class="toggle"><input type="checkbox" checked><span class="toggle__track" aria-hidden="true"><span class="toggle__thumb"></span></span><span data-i18n="c.f.auto">自动部署</span></label>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ Tabs ============ -->
+    <section class="demo reveal" aria-labelledby="demo-tabs">
+      <h2 id="demo-tabs" data-i18n="c.tabs.title">标签页</h2>
+      <div class="demo__stage">
+        <div class="tabs" role="tablist" aria-label="环境切换">
+          <button class="tab" role="tab" id="tab-1" aria-controls="panel-1" aria-selected="true" tabindex="0" data-i18n="c.tab.prod">生产</button>
+          <button class="tab" role="tab" id="tab-2" aria-controls="panel-2" aria-selected="false" tabindex="-1" data-i18n="c.tab.dev">预发</button>
+          <button class="tab" role="tab" id="tab-3" aria-controls="panel-3" aria-selected="false" tabindex="-1" data-i18n="c.tab.preview">预览</button>
+        </div>
+        <div class="tabpanel" role="tabpanel" id="panel-1" aria-labelledby="tab-1" tabindex="0">
+          <p data-i18n="c.tab.prodBody">生产环境:99.98% 可用性,只允许通过标签发布。</p>
+        </div>
+        <div class="tabpanel" role="tabpanel" id="panel-2" aria-labelledby="tab-2" tabindex="0" hidden>
+          <p data-i18n="c.tab.devBody">预发环境:与生产同配置,数据每日重置。</p>
+        </div>
+        <div class="tabpanel" role="tabpanel" id="panel-3" aria-labelledby="tab-3" tabindex="0" hidden>
+          <p data-i18n="c.tab.previewBody">预览环境:每个拉取请求获得独立 URL。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ Dropdown / details ============ -->
+    <section class="demo reveal" aria-labelledby="demo-dropdown">
+      <h2 id="demo-dropdown" data-i18n="c.dropdown.title">下拉菜单</h2>
+      <div class="demo__stage">
+        <details class="menu">
+          <summary class="btn btn--ghost" data-i18n="c.dropdown.trigger">操作</summary>
+          <div class="menu__panel">
+            <button class="menu__item" type="button" data-i18n="c.dropdown.rename">重命名</button>
+            <button class="menu__item" type="button" data-i18n="c.dropdown.transfer">转移所有权</button>
+            <button class="menu__item menu__item--danger" type="button" data-i18n="c.dropdown.delete">删除项目</button>
+          </div>
+        </details>
+        <button class="btn btn--ghost" type="button" data-tip="工具提示:纯 CSS 实现" data-i18n="c.tooltip">悬停查看工具提示</button>
+      </div>
+    </section>
+
+    <!-- ============ Modal / Toast ============ -->
+    <section class="demo reveal" aria-labelledby="demo-overlay">
+      <h2 id="demo-overlay" data-i18n="c.overlay.title">浮层</h2>
+      <div class="demo__stage">
+        <button class="btn btn--solid" type="button" id="modal-open" data-i18n="c.modal.open">打开对话框</button>
+        <button class="btn btn--ghost" type="button" id="toast-open" data-i18n="c.toast.open">触发提示</button>
+      </div>
+    </section>
+
+    <!-- ============ Code block ============ -->
+    <section class="demo reveal" aria-labelledby="demo-code">
+      <h2 id="demo-code" data-i18n="c.code.title">代码块</h2>
+      <div class="demo__stage">
+        <div class="code">
+          <div class="code__bar">
+            <span class="mono-note">BASH</span>
+            <button class="code__copy" type="button" data-budian-copy data-i18n="c.copy">复制</button>
+          </div>
+          <pre><code>npm create budian@latest my-app
+cd my-app && npm run dev</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ Table ============ -->
+    <section class="demo reveal" aria-labelledby="demo-table">
+      <h2 id="demo-table" data-i18n="c.table.title">表格</h2>
+      <div class="demo__stage">
+        <div class="table-wrap">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col" data-i18n="c.t.col1">部署</th>
+                <th scope="col" class="num" data-i18n="c.t.col2">请求数</th>
+                <th scope="col" data-i18n="c.t.col3">状态</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">prod-20260918</th>
+                <td class="num">2,841,067</td>
+                <td><span class="badge badge--ok" data-i18n="c.st.ok">正常</span></td>
+              </tr>
+              <tr>
+                <th scope="row">stage-20260920</th>
+                <td class="num">18,442</td>
+                <td><span class="badge badge--warn" data-i18n="c.st.warn">观察</span></td>
+              </tr>
+              <tr>
+                <th scope="row">pr-482-preview</th>
+                <td class="num">901</td>
+                <td><span class="badge badge--neutral">PREVIEW</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ Skeleton ============ -->
+    <section class="demo reveal" aria-labelledby="demo-skeleton">
+      <h2 id="demo-skeleton" data-i18n="c.skeleton.title">骨架屏</h2>
+      <div class="demo__stage demo__stage--grid">
+        <div class="skel-card" aria-hidden="true">
+          <div class="skel skel--title"></div>
+          <div class="skel"></div>
+          <div class="skel skel--short"></div>
+        </div>
+        <p class="mono-note" data-i18n="c.skeleton.note">// 仅用于真实异步区域</p>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============ Demo modal ============ -->
+  <dialog class="modal" id="demo-modal">
+    <form method="dialog" class="modal__form">
+      <h2 class="modal__title" data-i18n="c.modal.title">删除项目?</h2>
+      <p class="modal__text" data-i18n="c.modal.body">此操作不可撤销。所有部署、域名与日志将被永久删除。</p>
+      <footer class="modal__foot">
+        <button class="btn btn--ghost" type="submit" value="cancel" data-i18n="c.modal.cancel">取消</button>
+        <button class="btn btn--solid btn--danger" type="submit" value="delete" data-i18n="c.modal.confirm">确认删除</button>
+      </footer>
+    </form>
+  </dialog>
+
+  <footer class="footer">
+    <div class="shell footer__inner">
+      <p class="mono-note">BUDIAN UI v1.0.0 · <span data-i18n="footer.note">组件即文档</span></p>
+      <a class="mono-note" href="#main" data-i18n="footer.top">回到顶部</a>
+    </div>
+  </footer>
+
+  <script src="../assets/budian.js" defer></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      Budian.init({
+        messages: {
+          "zh-CN": {
+            "meta.title": "Budian UI — 组件参考",
+            "meta.description": "Budian UI 核心组件的活参考:按钮、卡片、输入、标签页、对话框、提示、代码块、表格与状态。",
+            "a11y.skip": "跳到主要内容",
+            "a11y.themeDark": "切换到深色模式",
+            "a11y.themeLight": "切换到浅色模式",
+            "brand.sub": "组件参考",
+            "page.title": "核心组件",
+            "page.lede": "Budian UI 的全部核心组件,直接在本页可交互。切换主题与语言,检查每个组件在两种外观、两种语言下的表现。",
+            "c.buttons.title": "按钮",
+            "c.primary": "主要操作", "c.secondary": "次要操作", "c.text": "文本按钮",
+            "c.disabled": "已禁用", "c.loading": "加载中",
+            "c.cards.title": "卡片",
+            "c.card.a": "功能卡片",
+            "c.card.aDesc": "图标、标题、描述与元信息,悬停时上浮并点亮边框。",
+            "c.stat.label": "月度请求", "c.stat.quota": "配额已用",
+            "c.empty": "还没有任何部署", "c.emptyCta": "创建第一个",
+            "c.badges.title": "徽章与状态",
+            "c.st.ok": "正常", "c.st.warn": "观察", "c.st.danger": "故障",
+            "c.live": "在线服务", "c.degraded": "降级运行",
+            "c.inputs.title": "表单",
+            "c.f.name": "项目名称", "c.f.namePh": "glasshouse",
+            "c.f.region": "部署区域",
+            "c.f.r1": "华东(杭州)", "c.f.r2": "西欧(牛津)", "c.f.r3": "北美(达拉斯)",
+            "c.f.notes": "备注", "c.f.notesPh": "可选",
+            "c.f.mode": "构建模式",
+            "c.f.minify": "压缩产物", "c.f.ssg": "预渲染",
+            "c.f.prod": "生产", "c.f.dev": "预发", "c.f.auto": "自动部署",
+            "c.tabs.title": "标签页",
+            "c.tab.prod": "生产", "c.tab.dev": "预发", "c.tab.preview": "预览",
+            "c.tab.prodBody": "生产环境:99.98% 可用性,只允许通过标签发布。",
+            "c.tab.devBody": "预发环境:与生产同配置,数据每日重置。",
+            "c.tab.previewBody": "预览环境:每个拉取请求获得独立 URL。",
+            "c.dropdown.title": "下拉菜单",
+            "c.dropdown.trigger": "操作",
+            "c.dropdown.rename": "重命名", "c.dropdown.transfer": "转移所有权", "c.dropdown.delete": "删除项目",
+            "c.tooltip": "悬停查看工具提示",
+            "c.overlay.title": "浮层",
+            "c.modal.open": "打开对话框", "c.toast.open": "触发提示",
+            "c.modal.title": "删除项目?",
+            "c.modal.body": "此操作不可撤销。所有部署、域名与日志将被永久删除。",
+            "c.modal.cancel": "取消", "c.modal.confirm": "确认删除",
+            "c.toast.done": "已复制到剪贴板",
+            "c.code.title": "代码块", "c.copy": "复制",
+            "c.table.title": "表格",
+            "c.t.col1": "部署", "c.t.col2": "请求数", "c.t.col3": "状态",
+            "c.skeleton.title": "骨架屏",
+            "c.skeleton.note": "// 仅用于真实异步区域",
+            "footer.note": "组件即文档", "footer.top": "回到顶部"
+          },
+          "en": {
+            "meta.title": "Budian UI — Component Reference",
+            "meta.description": "Live reference of Budian UI core components: buttons, cards, inputs, tabs, dialogs, toasts, code blocks, tables and status.",
+            "a11y.skip": "Skip to main content",
+            "a11y.themeDark": "Switch to dark mode",
+            "a11y.themeLight": "Switch to light mode",
+            "brand.sub": "Components",
+            "page.title": "Core components",
+            "page.lede": "Every core Budian UI component, interactive on this very page. Flip the theme and the language, then check each component in both appearances and both locales.",
+            "c.buttons.title": "Buttons",
+            "c.primary": "Primary action", "c.secondary": "Secondary action", "c.text": "Text button",
+            "c.disabled": "Disabled", "c.loading": "Loading",
+            "c.cards.title": "Cards",
+            "c.card.a": "Feature card",
+            "c.card.aDesc": "Icon, title, description and metadata; lifts and lights its border on hover.",
+            "c.stat.label": "Monthly requests", "c.stat.quota": "of quota used",
+            "c.empty": "No deployments yet", "c.emptyCta": "Create the first one",
+            "c.badges.title": "Badges & status",
+            "c.st.ok": "Operational", "c.st.warn": "Watching", "c.st.danger": "Down",
+            "c.live": "Live service", "c.degraded": "Degraded",
+            "c.inputs.title": "Forms",
+            "c.f.name": "Project name", "c.f.namePh": "glasshouse",
+            "c.f.region": "Deploy region",
+            "c.f.r1": "East China (Hangzhou)", "c.f.r2": "Western Europe (Oxford)", "c.f.r3": "North America (Dallas)",
+            "c.f.notes": "Notes", "c.f.notesPh": "Optional",
+            "c.f.mode": "Build mode",
+            "c.f.minify": "Minify output", "c.f.ssg": "Pre-render",
+            "c.f.prod": "Production", "c.f.dev": "Staging", "c.f.auto": "Auto-deploy",
+            "c.tabs.title": "Tabs",
+            "c.tab.prod": "Production", "c.tab.dev": "Staging", "c.tab.preview": "Preview",
+            "c.tab.prodBody": "Production: 99.98% uptime, tag-based releases only.",
+            "c.tab.devBody": "Staging: mirrors production, data resets daily.",
+            "c.tab.previewBody": "Preview: every pull request gets its own URL.",
+            "c.dropdown.title": "Dropdown menu",
+            "c.dropdown.trigger": "Actions",
+            "c.dropdown.rename": "Rename", "c.dropdown.transfer": "Transfer ownership", "c.dropdown.delete": "Delete project",
+            "c.tooltip": "Hover for a tooltip",
+            "c.overlay.title": "Overlays",
+            "c.modal.open": "Open dialog", "c.toast.open": "Fire a toast",
+            "c.modal.title": "Delete project?",
+            "c.modal.body": "This cannot be undone. All deployments, domains and logs will be permanently removed.",
+            "c.modal.cancel": "Cancel", "c.modal.confirm": "Delete",
+            "c.toast.done": "Copied to clipboard",
+            "c.code.title": "Code block", "c.copy": "Copy",
+            "c.table.title": "Table",
+            "c.t.col1": "Deployment", "c.t.col2": "Requests", "c.t.col3": "Status",
+            "c.skeleton.title": "Skeleton",
+            "c.skeleton.note": "// for genuinely async regions only",
+            "footer.note": "The components are the documentation", "footer.top": "Back to top"
+          }
+        }
+      });
+
+      /* Modal */
+      var modal = document.getElementById("demo-modal");
+      document.getElementById("modal-open").addEventListener("click", function () { modal.showModal(); });
+      modal.addEventListener("close", function () {
+        if (modal.returnValue === "delete") Budian.toast.show("Deleted", { type: "danger" });
+      });
+
+      /* Toast */
+      document.getElementById("toast-open").addEventListener("click", function () {
+        Budian.toast.show(Budian.i18n.t("c.toast.done"));
+      });
+
+      /* Tabs — arrow-key cycling per WAI-ARIA */
+      var tabs = Array.prototype.slice.call(document.querySelectorAll(".tab"));
+      function selectTab(tab) {
+        tabs.forEach(function (t) {
+          var selected = t === tab;
+          t.setAttribute("aria-selected", selected ? "true" : "false");
+          t.tabIndex = selected ? 0 : -1;
+          document.getElementById(t.getAttribute("aria-controls")).hidden = !selected;
+        });
+        tab.focus();
+      }
+      tabs.forEach(function (tab, i) {
+        tab.addEventListener("click", function () { selectTab(tab); });
+        tab.addEventListener("keydown", function (e) {
+          var dir = e.key === "ArrowRight" ? 1 : e.key === "ArrowLeft" ? -1 : 0;
+          if (!dir) return;
+          e.preventDefault();
+          selectTab(tabs[(i + dir + tabs.length) % tabs.length]);
+        });
+      });
+    });
+  </script>
+</body>
+</html>

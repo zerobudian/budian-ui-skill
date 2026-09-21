@@ -1,0 +1,290 @@
+/* ==========================================================================
+   Budian UI — Design Tokens v1.0.0
+   --------------------------------------------------------------------------
+   Single source of truth for the visual language distilled from the
+   Budian Cloud family of pages (measured 2026-09-21).
+
+   Evidence tags per token:
+     [O] Observed   — measured from live Budian pages or their source code
+     [I] Inferred   — consistent across several Budian pages, normalized here
+     [R] Recommended— engineering best practice added to complete the system
+   Full evidence log: docs/evidence.md
+
+   Usage: components must consume SEMANTIC tokens, never raw hex values.
+   Raw palette values live at the bottom of this file for reference only.
+   ========================================================================== */
+
+:root {
+  color-scheme: light;                                        /* [O] gfw-x, budianai, budianwtx */
+
+  /* ---- Surface & text (light) ---------------------------------------- */
+  --budian-bg: #f3f5f8;                                       /* [O] budiancloud */
+  --budian-bg-inset: #ebeef3;                                 /* [I] wells, stripes, code surfaces */
+  --budian-surface: rgba(255, 255, 255, .68);                 /* [O] glass card */
+  --budian-surface-strong: rgba(255, 255, 255, .90);          /* [O] popover / dialog */
+  --budian-text-primary: #111419;                             /* [O] */
+  --budian-text-secondary: #3f4756;                           /* [I] between primary and muted */
+  --budian-text-muted: #667085;                               /* [O] */
+  --budian-border: rgba(15, 23, 42, .12);                     /* [O] hairline */
+  --budian-border-strong: rgba(15, 23, 42, .22);              /* [I] */
+
+  /* ---- Accent & status (light) --------------------------------------- */
+  --budian-accent: #237cff;                                   /* [O] selection blue */
+  --budian-accent-hover: #1a6ef0;                             /* [I] */
+  --budian-on-accent: #ffffff;                                /* [O] */
+  --budian-ring: #1a78ff;                                     /* [O] focus ring base */
+  --budian-success: #0ca30c;                                  /* [O] budianwtx "good" */
+  --budian-warning: #c58100;                                  /* [O] gfw-x "observe" */
+  --budian-danger: #e65243;                                   /* [O] gfw-x "danger" */
+  --budian-on-danger: #ffffff;                               /* [R] text on danger fills, both themes */
+  --budian-info: #1a78ff;                                     /* [O] ring reused as info */
+
+  /* ---- Code surface (light) ------------------------------------------ */
+  --budian-code-bg: #101318;                                  /* [I] terminal stays dark in both themes */
+  --budian-code-text: #e7edf6;                                /* [I] */
+  --budian-code-border: rgba(255, 255, 255, .08);             /* [I] */
+
+  /* ---- Scrim / overlay (light) --------------------------------------- */
+  --budian-overlay: rgba(9, 12, 20, .5);                      /* [O] dialog backdrop */
+
+  /* ---- Typography ----------------------------------------------------- */
+  --budian-font-sans: Inter, "SF Pro Display", "PingFang SC",
+    "Microsoft YaHei", system-ui, sans-serif;                 /* [O] budiancloud */
+  --budian-font-mono: ui-monospace, "SFMono-Regular", Consolas,
+    "Liberation Mono", Menlo, monospace;                      /* [O] budianai + section-note */
+  --budian-font-serif: ui-serif, "Songti SC", "Noto Serif CJK SC",
+    Georgia, serif;                                           /* [O] vellunote, atmospheric branch only */
+
+  --budian-text-display-size: clamp(58px, 8.2vw, 118px);      /* [O] hero */
+  --budian-text-display-lh: .95;                              /* [O] .92 measured, .95 safe for CJK */
+  --budian-text-display-tracking: -.06em;                     /* [O] -.075em measured, tightened for mixed text */
+  --budian-text-display-weight: 780;                          /* [O] */
+
+  --budian-text-title-size: clamp(34px, 4vw, 52px);           /* [O] section h2 */
+  --budian-text-title-lh: 1.05;                               /* [O] 1 measured, 1.05 safe for CJK */
+  --budian-text-title-tracking: -.05em;                       /* [O] -.055em */
+  --budian-text-title-weight: 800;                            /* [O] 790–820 across pages */
+
+  --budian-text-heading-size: 19px;                           /* [O] card h3 */
+  --budian-text-heading-lh: 1.25;                             /* [O] 1.2 */
+  --budian-text-heading-tracking: -.02em;                     /* [O] -.025em */
+  --budian-text-heading-weight: 700;                          /* [O] 690–760 */
+
+  --budian-text-subheading-size: 16px;                        /* [O] */
+  --budian-text-subheading-weight: 650;                       /* [O] 650–690 */
+
+  --budian-text-body-size: 15px;                              /* [O] 14–16px band */
+  --budian-text-body-lh: 1.7;                                 /* [O] 1.45–1.78 */
+
+  --budian-text-lede-size: clamp(16px, 1.8vw, 21px);          /* [O] hero paragraph */
+  --budian-text-lede-lh: 1.75;                                /* [O] */
+
+  --budian-text-small-size: 13px;                             /* [O] */
+  --budian-text-small-lh: 1.5;                                /* [O] 1.45 */
+
+  --budian-text-caption-size: 11px;                           /* [O] 10–12px band */
+  --budian-text-caption-lh: 1.4;                              /* [O] */
+  --budian-text-caption-tracking: .12em;                      /* [O] metadata */
+
+  /* Kicker: small uppercase label above titles */
+  --budian-kicker-size: 11px;                                 /* [O] 10–12px band */
+  --budian-kicker-weight: 800;                                /* [O] 700–800 */
+  --budian-kicker-tracking: .18em;                            /* [O] .16–.22em */
+
+  /* ---- Spacing -------------------------------------------------------- */
+  /* 4px base scale; values observed across all pages */
+  --budian-space-1: 4px;                                      /* [O] */
+  --budian-space-2: 8px;                                      /* [O] */
+  --budian-space-3: 12px;                                     /* [O] */
+  --budian-space-4: 16px;                                     /* [O] */
+  --budian-space-5: 20px;                                     /* [O] */
+  --budian-space-6: 24px;                                     /* [O] */
+  --budian-space-8: 32px;                                     /* [O] */
+  --budian-space-10: 40px;                                    /* [O] */
+  --budian-space-12: 48px;                                    /* [O] */
+  --budian-space-16: 64px;                                    /* [O] */
+  --budian-space-20: 80px;                                    /* [O] */
+  --budian-space-24: 96px;                                    /* [O] */
+  --budian-space-section: clamp(64px, 9vw, 112px);            /* [O] 58–130px band, normalized */
+
+  /* ---- Layout / containers -------------------------------------------- */
+  --budian-container-sm: 640px;                               /* [O] vellunote ritual, chat column */
+  --budian-container-md: 940px;                               /* [O] vellunote refinement */
+  --budian-container-lg: 1180px;                              /* [O] resident3, h3flow workbench */
+  --budian-container-xl: 1240px;                              /* [O] budiancloud, gfw-x */
+  --budian-gutter: 20px;                                      /* [O] calc(100% - 40px) */
+  --budian-gutter-narrow: 14px;                               /* [O] mobile calc(100% - 28px) */
+
+  /* ---- Radius ---------------------------------------------------------- */
+  --budian-radius-sm: 10px;                                   /* [O] small inputs, chips */
+  --budian-radius-md: 14px;                                   /* [O] buttons 12–14, icon tiles 13 */
+  --budian-radius-lg: 18px;                                   /* [O] cards 16–19 */
+  --budian-radius-xl: 24px;                                   /* [O] dialogs / panels 22–28 */
+  --budian-radius-2xl: 32px;                                  /* [O] hero panels 30–32 */
+  --budian-radius-pill: 999px;                                /* [O] pills, progress tracks */
+
+  /* ---- Shadow / elevation ---------------------------------------------- */
+  --budian-shadow-sm: 0 8px 24px rgba(15, 23, 42, .10);       /* [O] 0 8 24 .12 */
+  --budian-shadow-md: 0 12px 34px rgba(15, 23, 42, .12);      /* [O] card hover */
+  --budian-shadow-lg: 0 24px 80px rgba(15, 23, 42, .10);      /* [O] gfw-x / h3flow */
+  --budian-shadow-xl: 0 30px 110px rgba(15, 23, 42, .38);     /* [O] dialog */
+  --budian-highlight-edge: inset 0 1px 0 rgba(255, 255, 255, .045); /* [O] glass top edge */
+
+  /* ---- Blur ------------------------------------------------------------- */
+  --budian-blur-sm: 10px;                                     /* [O] dialog backdrop */
+  --budian-blur-md: 20px;                                     /* [O] cards */
+  --budian-blur-lg: 28px;                                     /* [O] composer / settings 24–28 */
+  --budian-blur-xl: 36px;                                     /* [O] dialog */
+  --budian-blur-ambient: 95px;                                /* [O] ambient orbs */
+
+  /* ---- Motion ------------------------------------------------------------ */
+  --budian-motion-instant: 140ms;                             /* [O] micro feedback */
+  --budian-motion-fast: 250ms;                                /* [O] button color / bg */
+  --budian-motion-normal: 350ms;                              /* [O] hover lift, borders */
+  --budian-motion-slow: 650ms;                                /* [O] reveals 500–700 */
+  --budian-motion-grand: 950ms;                               /* [O] hero title */
+  --budian-ease-standard: cubic-bezier(.22, 1, .36, 1);       /* [O] canonical Budian ease */
+  --budian-ease-enter: cubic-bezier(.2, .8, .2, 1);           /* [O] family variant */
+  --budian-ease-exit: cubic-bezier(.4, 0, 1, 1);              /* [R] */
+  --budian-ease-ambient: cubic-bezier(.45, 0, .55, 1);        /* [O] ciphey aurora */
+  --budian-stagger: 55ms;                                     /* [O] reveal stagger 45–70 */
+
+  /* ---- Z-index ------------------------------------------------------------ */
+  --budian-z-content: 2;                                      /* [O] main above ambient */
+  --budian-z-sticky: 20;                                      /* [O] topbar */
+  --budian-z-toast: 100;                                      /* [O] toast */
+  --budian-z-skip: 1000;                                      /* [O] gfw-x skip link */
+
+  /* ---- Opacity ------------------------------------------------------------- */
+  --budian-opacity-glass: .68;                                /* [O] surface alpha */
+  --budian-opacity-ambient: .18;                              /* [O] ambient orbs */
+  --budian-opacity-disabled: .55;                             /* [R] */
+  --budian-opacity-faint: .32;                                /* [O] grid field */
+
+  /* ---- Iconography ---------------------------------------------------------- */
+  --budian-icon-sm: 16px;                                     /* [O] button icons */
+  --budian-icon-md: 19px;                                     /* [O] card icons */
+  --budian-icon-stroke: 2;                                    /* [O] global svg rule */
+
+  /* ---- Touch / focus --------------------------------------------------------- */
+  --budian-target-min: 44px;                                  /* [R] vellunote observed 44px buttons */
+  --budian-focus-width: 3px;                                  /* [O] */
+  --budian-focus-offset: 3px;                                 /* [O] */
+
+  /* ---- Raw palette (reference only — do not consume directly) ---------------- */
+  --budian-raw-cyan: #29d6ff;                                 /* [O] card accent */
+  --budian-raw-green: #34ef8a;                                /* [O] card accent */
+  --budian-raw-violet: #9a7cff;                               /* [O] card accent */
+  --budian-raw-blue: #3b8cff;                                 /* [O] card accent */
+  --budian-raw-amber: #ffb84a;                                /* [O] card accent */
+  --budian-raw-lime: #8ee36b;                                 /* [O] card accent */
+  --budian-raw-orange: #ff7a45;                               /* [O] card accent */
+  --budian-raw-rose: #ff6fae;                                 /* [O] card accent */
+  --budian-raw-red: #ff5d68;                                  /* [O] card accent */
+
+  /* Signature hero gradient phrase (use at most once per page) */
+  --budian-gradient-phrase: linear-gradient(100deg,
+    #1976ff 4%, #63d8ff 52%, #7c5cff 98%);                    /* [O] */
+}
+
+/* ==========================================================================
+   Dark theme — applied via <html data-theme="dark">
+   Default behavior: data-theme is set by an inline <head> script from
+   localStorage("budian-theme") or prefers-color-scheme. See docs/theme.md.
+   ========================================================================== */
+
+:root[data-theme="dark"] {
+  color-scheme: dark;                                         /* [O] */
+
+  --budian-bg: #050609;                                       /* [O] budiancloud dark */
+  --budian-bg-inset: #0b0e14;                                 /* [I] */
+  --budian-surface: rgba(15, 18, 25, .66);                    /* [O] */
+  --budian-surface-strong: rgba(17, 20, 28, .92);             /* [O] */
+  --budian-text-primary: #f4f7fb;                             /* [O] */
+  --budian-text-secondary: #c3cad6;                           /* [I] */
+  --budian-text-muted: #9299a8;                               /* [O] */
+  --budian-border: rgba(255, 255, 255, .11);                  /* [O] */
+  --budian-border-strong: rgba(255, 255, 255, .24);           /* [I] */
+
+  --budian-accent: #48b8ff;                                   /* [O] orbit dot blue */
+  --budian-accent-hover: #67b6ff;                             /* [O] dark ring */
+  --budian-on-accent: #05070a;                                /* [O] arrow on accent */
+  --budian-ring: #67b6ff;                                     /* [O] */
+  --budian-success: #34ef8a;                                  /* [O] */
+  --budian-warning: #f0b340;                                  /* [O] gfw-x dark */
+  --budian-danger: #ff6b5c;                                   /* [O] gfw-x dark */
+  --budian-on-danger: #ffffff;                                /* [R] */
+  --budian-info: #67b6ff;                                     /* [O] */
+
+  --budian-code-bg: #0d1015;                                  /* [I] */
+  --budian-code-text: #e7edf6;                                /* [I] */
+  --budian-code-border: rgba(255, 255, 255, .08);             /* [I] */
+
+  --budian-overlay: rgba(0, 0, 0, .55);                       /* [O] */
+
+  --budian-shadow-sm: 0 8px 24px rgba(0, 0, 0, .35);          /* [I] deeper in dark */
+  --budian-shadow-md: 0 12px 34px rgba(0, 0, 0, .40);         /* [I] */
+  --budian-shadow-lg: 0 24px 80px rgba(0, 0, 0, .45);         /* [I] */
+  --budian-shadow-xl: 0 30px 110px rgba(0, 0, 0, .55);        /* [I] */
+  --budian-highlight-edge: inset 0 1px 0 rgba(255, 255, 255, .05); /* [O] */
+}
+
+/* ==========================================================================
+   No-JS dark fallback — if the inline bootstrap script never ran (JS off),
+   a dark-OS visitor still gets the dark theme via pure CSS. Must mirror the
+   block above. [R] progressive-enhancement addition; observed as pure-CSS
+   approach on budian-gfw.
+   ========================================================================== */
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+
+    --budian-bg: #050609;
+    --budian-bg-inset: #0b0e14;
+    --budian-surface: rgba(15, 18, 25, .66);
+    --budian-surface-strong: rgba(17, 20, 28, .92);
+    --budian-text-primary: #f4f7fb;
+    --budian-text-secondary: #c3cad6;
+    --budian-text-muted: #9299a8;
+    --budian-border: rgba(255, 255, 255, .11);
+    --budian-border-strong: rgba(255, 255, 255, .24);
+
+    --budian-accent: #48b8ff;
+    --budian-accent-hover: #67b6ff;
+    --budian-on-accent: #05070a;
+    --budian-ring: #67b6ff;
+    --budian-success: #34ef8a;
+    --budian-warning: #f0b340;
+    --budian-danger: #ff6b5c;
+    --budian-on-danger: #ffffff;
+    --budian-info: #67b6ff;
+
+    --budian-code-bg: #0d1015;
+    --budian-code-text: #e7edf6;
+    --budian-code-border: rgba(255, 255, 255, .08);
+
+    --budian-overlay: rgba(0, 0, 0, .55);
+
+    --budian-shadow-sm: 0 8px 24px rgba(0, 0, 0, .35);
+    --budian-shadow-md: 0 12px 34px rgba(0, 0, 0, .40);
+    --budian-shadow-lg: 0 24px 80px rgba(0, 0, 0, .45);
+    --budian-shadow-xl: 0 30px 110px rgba(0, 0, 0, .55);
+    --budian-highlight-edge: inset 0 1px 0 rgba(255, 255, 255, .05);
+  }
+}
+
+/* ==========================================================================
+   Reduced motion — the global kill switch observed on budiancloud,
+   budianai, gfw-x, resident3, vellunote. Keep state feedback (focus,
+   selection) intact; remove movement and loops.
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
