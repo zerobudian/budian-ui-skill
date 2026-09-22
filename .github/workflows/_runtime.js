@@ -2,7 +2,8 @@ const fs = require("fs");
 const path = require("path");
 const { JSDOM } = require("jsdom");
 
-const ROOT = "/workspace/budian-ui/examples";
+// Resolve repo root from this script's own location (.github/workflows/_runtime.js -> ../..)
+const ROOT = path.resolve(__dirname, "..", "..", "examples");
 const FILES = ["starter", "landing", "dashboard", "docs", "components"];
 let pass = 0, fail = 0;
 const report = [];
@@ -91,7 +92,12 @@ function loadPage(dir, opts = {}) {
   i18nNodes.forEach(el => { if (!el.textContent.trim()) i18nOk = false; });
   check(`${dir}: data-i18n nodes have text`, i18nNodes.length === 0 || i18nOk, "untranslated node(s)");
   check(`${dir}: html lang set`, !!d.documentElement.lang, "lang:"+d.documentElement.lang);
-  check(`${dir}: locale toggle key present`, headHtml.includes('a11y.themeToggle') || true); // sanity
+  const localeToggle = d.querySelector("[data-budian-locale-toggle]");
+  check(`${dir}: locale toggle control present`, !!localeToggle, "no locale toggle button");
+  if (localeToggle) {
+    // text must have been refined to the non-current-language label by init
+    check(`${dir}: locale toggle labeled by runtime`, /\S/.test(localeToggle.textContent), "empty label");
+  }
     await Promise.all(revealPromises);
   }
 

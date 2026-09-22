@@ -2,7 +2,8 @@
 """Budian UI v1.1.0 static validation suite."""
 import re, json, pathlib, glob
 
-ROOT = pathlib.Path("/workspace/budian-ui")
+# Resolve repo root from this script's own location (.github/workflows/_static.py -> parents[2])
+ROOT = pathlib.Path(__file__).resolve().parents[2]
 pass_n = [0]; fail = []
 def check(name, cond, detail=""):
     if cond: pass_n[0]+=1
@@ -15,7 +16,6 @@ for p in sorted(glob.glob(str(ROOT/"examples" / "*") + "/index.html")):
     check(f"{name}: has <html", "<html" in s)
     check(f"{name}: has <main", "<main" in s)
     check(f"{name}: has skip link", 'class="skip' in s.lower() or "skip-link" in s)
-    check(f"{name}: data-i18n balanced quotes", s.count("data-i18n=\"")>=0)
     # script/link balance
     check(f"{name}: scripts balanced", s.count("<script")==s.count("</script>"))
 
@@ -29,12 +29,23 @@ for p in glob.glob(str(ROOT) + "/**/*.md", recursive=True):
     # a legitimate (necessary) way to render a literal backtick inside a pipe cell.
     bad_esc = [l for l in s.splitlines() if "\\`" in l and not l.strip().startswith("|")]
     check(f"{name}: no escaped backtick `\\`` outside tables", not bad_esc, bad_esc[0][:40] if bad_esc else "")
-    # link targets exist (github-markdown local .md links)
-    for m in re.finditer(r"\]\(([^)#]+\.md(?:#[^)]*)?)\)", s):
-        target = m.group(1).split("#")[0]
-        if target.endswith((".md",)):
-            tpath = ROOT / target if not (ROOT/name).parent else (ROOT/name).parent / target
-            check(f"{name}: link exists {target}", tpath.exists() or (ROOT/target).exists())
+    # link targets exist — resolve per-directory, strip anchors, skip external URLs
+    md_path = pathlib.Path(p)
+    md_dir = md_path.parent
+    for m in re.finditer(r"\]\((https?://[^)]+|\S+)\)", s):
+        raw = m.group(1)
+        # skip external URLs and mailto/anchor-only/inline-code targets
+        if raw.startswith(("http://", "https://", "mailto:", "#")):
+            continue
+        if raw.startswith(("`", "data:")) or "://" in raw:
+            continue
+        file_part = raw.split("#")[0].strip("<>")
+        # skip code-fence/pipeline-example targets and empties
+        if not file_part or file_part.startswith(("`", "(", "$")):
+            continue
+        if file_part.endswith(".md"):
+            target = (md_dir / file_part).resolve()
+            check(f"{md_path.name}: link exists {file_part}", target.exists(), f"{target}")
 
 # 3. Every data-i18n key defined in both locales across all examples
 for p in sorted(glob.glob(str(ROOT/"examples" / "*") + "/index.html")):
@@ -67,8 +78,7 @@ for p in glob.glob(str(ROOT) + "/**/*", recursive=True):
         check(f"no secret in {pathlib.Path(p).relative_to(ROOT)}", not m, f"found {m.group(1)[:8]}..." if m else "")
 
 # 5. tokens.json valid & version aligned
-tj = json.load(open(ROOT/"tokens"/"tokens.json"))
-check("tokens.json valid JSON", True)
+tj = json.load(open(ROOT/"tokens"/"tokens.json"))  # json.load raises on invalid JSON
 check("tokens.json version 1.1.0", tj["$meta"]["version"]=="1.1.0")
 css = (ROOT/"tokens"/"tokens.css").read_text(encoding="utf-8")
 check("tokens.css version 1.1.0", "v1.1.0" in css)

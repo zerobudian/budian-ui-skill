@@ -24,5 +24,7 @@ jobs:
         run: python3 .github/workflows/_static.py
       - name: Runtime smoke (jsdom)
         run: |
+          mkdir -p /tmp/budian-ci && cd /tmp/budian-ci
+          npm init -y >/dev/null
           npm install --no-audit --no-fund jsdom
-          node .github/workflows/_runtime.js
+          NODE_PATH=/tmp/budian-ci/node_modules node "$GITHUB_WORKSPACE/.github/workflows/_runtime.js"
