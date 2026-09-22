@@ -48,7 +48,7 @@ html.js .reveal { opacity: 0; transform: translateY(18px);
 html.js .reveal.is-visible { opacity: 1; transform: none; }
 ```
 
-**铁律**:`opacity: 0` 只能出现在 `html.js` 前缀下——无 JS 时内容必须可见。
+**铁律**:`opacity: 0` 只能出现在 `html.js` 前缀下——无 JS 时内容必须可见。并且 `js` 类**由运行时在 reveal 系统成功武装之后才添加**(在 `reveal.init()` 内、确认 IntersectionObserver 可用之后),而不是脚本加载时:若运行时加载失败、`Budian.init()` 从未被调用或中途抛错,`js` 永远不会出现,所有 `.reveal` 内容保持可见。渐进增强永远优先于动画。
 
 ## 功能动画(每节至多一个)
 

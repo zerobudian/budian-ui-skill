@@ -175,7 +175,7 @@ button { font: inherit; color: inherit; }
 
 .icon-btn {
   display: grid; place-items: center;
-  width: 40px; height: 40px;
+  width: var(--budian-target-min); height: var(--budian-target-min);
   border-radius: var(--budian-radius-md);
   border: 1px solid var(--budian-border);
   background: var(--budian-surface);

@@ -11,7 +11,7 @@
 | 焦点可见 | `:focus-visible { outline: 3px solid color-mix(in srgb, var(--budian-ring) 42%, transparent); outline-offset: 3px; }` | O |
 | skip-link | 首个 Tab 焦点出现"跳到主内容";`z-index: 1000`,平时 `translateY(-150%)` | O@gfw-x |
 | aria | 仅补原生语义缺口:tablist/tab/tabpanel、aria-selected、aria-expanded、aria-controls、aria-live、aria-busy、aria-describedby | O |
-| 触控目标 | ≥44×44px(视觉可小,热区不可) | O@vellunote |
+| 触控目标 | ≥44×44px(视觉可小,热区不可),统一使用 `--budian-target-min`;小尺寸变体只减 padding/字号,不减热区 | O@vellunote |
 | 屏幕阅读器文本 | 装饰层 `aria-hidden="true"`;图标按钮必有 `aria-label` | O |
 | Reduced motion | 全局开关(见 motion.md);信息不依赖动画 | O |
 | 对比度 | 正文 ≥7:1,muted ≥4.5:1,AA 达标 | O/I |
@@ -49,6 +49,8 @@ button, a { -webkit-tap-highlight-color: transparent; }
 ```
 
 核心信息不得仅存于 hover 态(tooltip 内容需可经 focus 或常显获取)。
+
+**执行情况(本仓库示例自检)**:五个示例的 icon 按钮(40px→`--budian-target-min`)、顶栏导航链接(`min-height: var(--budian-target-min)`)、小号按钮(`.btn--sm` 40px→44px)、docs 的搜索框与 TOC 链接均已达到 44×44px——设计系统要求什么,starter 自己必须先做到。
 
 ## 高对比与强制色彩
 

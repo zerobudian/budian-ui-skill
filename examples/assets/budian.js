@@ -1,13 +1,18 @@
 /* ==========================================================================
-   Budian UI runtime — v1.0.0
+   Budian UI runtime — v1.1.0
    Framework-agnostic, zero dependencies. Progressive by design:
    without this file, page content stays visible; with it, pages gain
    theme modes, locale adaptation, reveals and toasts.
 
    Page contract (see the index.html of each example):
      1. Inline no-flash theme bootstrap in <head>, before stylesheets.
-     2. <html> gets class "js" only via this runtime — initial hidden
-        reveal states must be gated on .js so no-JS visitors see content.
+     2. Content is visible BY DEFAULT. This runtime adds the "js" class
+        to <html> only when the reveal system successfully arms itself
+        (inside reveal.init, with a working IntersectionObserver and
+        motion allowed). If this file fails to load, or Budian.init()
+        is never called or throws, "js" is never added and every
+        .reveal element stays fully visible — progressive enhancement
+        always wins over animation.
      3. Text nodes carry data-i18n="key"; attributes carry
         data-i18n-attr="placeholder:key,aria-label:key2".
      4. Pages call Budian.init({ messages, ... }) on DOMContentLoaded.
@@ -19,8 +24,6 @@
   var STORAGE_THEME = "budian-theme";
   var STORAGE_LOCALE = "budian-locale";
   var root = document.documentElement;
-
-  root.classList.add("js");
 
   var reducedMotion = window.matchMedia
     ? window.matchMedia("(prefers-reduced-motion: reduce)")
@@ -61,8 +64,12 @@
       for (var i = 0; i < metas.length; i++) metas[i].setAttribute("content", color);
     }
 
-    /* Keep following the OS while no manual override exists. */
-    onMedia("(prefers-color-scheme: change)", function () {
+    /* Keep following the OS while no manual override exists.
+       The listener is on the "(prefers-color-scheme: dark)" query: its
+       "change" event fires when the OS appearance flips while the page
+       is open. A manual override in storage always wins and is never
+       clobbered by system changes. */
+    onMedia("(prefers-color-scheme: dark)", function () {
       if (!stored()) { applyMode("system"); }
     });
 
@@ -181,15 +188,28 @@
   /* ---------------------------------------------------------------- Reveal */
 
   var reveal = {
+    armed: false,
     init: function (selector) {
+      if (this.armed) return;
       var items = Array.prototype.slice.call(document.querySelectorAll(selector || ".reveal"));
       if (!items.length) return;
       var show = function (el) { el.classList.add("on"); };
 
+      /* Reduced motion, or no IntersectionObserver: never hide anything. */
       if (reducedMotion.matches || !("IntersectionObserver" in window)) {
         items.forEach(show);
         return;
       }
+
+      /* Arm the hidden state ONLY now that we know we can reveal. Adding
+         "js" activates the .js .reveal { opacity: 0 } rules; the observer
+         below is created in the same synchronous block, so anything
+         already in view is revealed on the next frame. If this code never
+         runs (script error, missing init, network failure), "js" is never
+         added and all content stays visible. */
+      root.classList.add("js");
+      this.armed = true;
+
       var io = new IntersectionObserver(function (entries) {
         entries.forEach(function (entry) {
           if (!entry.isIntersecting) return;
@@ -198,6 +218,19 @@
         });
       }, { threshold: 0.16 });
       items.forEach(function (el) { io.observe(el); });
+
+      /* Failsafe: if an element is inside the viewport but its IO callback
+         never fired (exotic embedding contexts), reveal it after 4s.
+         Below-viewport elements keep their scroll reveal. */
+      window.setTimeout(function () {
+        var vw = window.innerWidth || 0;
+        var vh = window.innerHeight || 0;
+        items.forEach(function (el) {
+          if (el.classList.contains("on")) return;
+          var r = el.getBoundingClientRect();
+          if (r.bottom > 0 && r.top < vh && r.right > 0 && r.left < vw) show(el);
+        });
+      }, 4000);
     }
   };
 
@@ -253,7 +286,7 @@
   /* ------------------------------------------------------------------- API */
 
   window.Budian = {
-    version: "1.0.0",
+    version: "1.1.0",
     theme: theme,
     i18n: i18n,
     reveal: reveal,
@@ -275,7 +308,12 @@
         btn.addEventListener("click", function () { i18n.toggle(); });
       });
 
-      /* Reflect the current state on toggle buttons (label + pressed state). */
+      /* Reflect the current state on toggle buttons (label + pressed
+         state). Contract: after init, a theme button's icon (CSS-driven
+         by data-theme), aria-label and aria-pressed must all match the
+         resolved theme. Static HTML ships only a NEUTRAL aria-label —
+         direction-specific labels and aria-pressed are written here, so
+         a failed runtime can never leave a wrong button state behind. */
       function syncControls() {
         document.querySelectorAll("[data-budian-locale-toggle]").forEach(function (btn) {
           var label = i18n.locale() === "zh-CN" ? "EN" : "中文";

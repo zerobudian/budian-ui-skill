@@ -77,3 +77,22 @@
 - Skip-link(仅 GFW X Observed,其余站缺失)→ 收录为通用规则(Observed@GFW X)
 - 命令面板 / Command menu → 未实现,仅在 components.md 记为扩展方向
 - Date Picker / Data Grid / File Upload 等站群不存在的组件 → 不进入 Core,文档标注为未来扩展须遵守现有 Tokens
+
+## 7. 第二轮维护(v1.1.0,2026-09-22)
+
+> 触发:维护任务「修复 Skill 触发条件 / 渐进增强 / 主题系统 / A11y / 语言原则 / QA 闭环」。对照本轮全部要求:
+
+| # | 要求 | 1.0.0 状态 | 证据 | 行动 | 最终状态 |
+| --- | --- | --- | --- | --- | --- |
+| R1 | 触发依据为任务类型(涉及 UI 即触发),删除按产品名触发 | FAIL | SKILL.md description 列 GFW X/Resident3/Ciphey 等为触发词 | 重写 description + When to use;openai.yaml、README 同步 | PASS |
+| R2 | 设计原则从任务开始参与,禁止"最后美化" | PARTIAL | 15 步工作流隐含但无强制 | 新增 "Design participates from the start" 12 阶段 + 明确禁止项 | PASS |
+| R3 | README Markdown 转义问题(`\`` 等) | UNKNOWN | 当前树中未复现(全 md 无反斜杠转义、fence 配对完整) | 全仓扫描确认干净;测试套件新增 fence 平衡与转义检查防回归 | PASS(未复现,已加防护) |
+| R4 | 强制 UI QA 闭环(不得只看源码) | PARTIAL | 验证清单偏静态检查 | 新增 "UI QA loop (mandatory)" 17 步;禁止虚假宣称"已视觉验证" | PASS |
+| R5 | starter 渐进增强:JS 失败内容必须可见 | FAIL | `.js` 在脚本加载即添加,init 失败则 reveal 永久隐藏 | `.js` 移入 `reveal.init()` 成功武装后添加;新增 4s 视口内兜底 | PASS |
+| R6 | 主题系统:按钮状态一致 + 系统变化实时跟随 | FAIL | 监听器媒体查询写错(`prefers-color-scheme: change`,永不触发);aria-pressed 硬编码 | 修正为 `(prefers-color-scheme: dark)` change;静态 HTML 仅中性标签,运行时写 aria-pressed/方向标签 | PASS |
+| R7 | 44×44 触控目标:starter 自身必须达标 | FAIL | icon-btn 40px、btn--sm 40px、topnav 链接 ~30px、docs 搜索框/TOC ~40px | 全部改用 `--budian-target-min`;按钮规范 40–52 → 44–52 | PASS |
+| R8 | 语言/Locale 原则:不强行中文/混合 | FAIL | i18n 为"强制默认",示例即双语 | 新增语言继承原则(SKILL.md/i18n.md/README);i18n 机制明确限定于多语言项目 | PASS |
+| R9 | starter 源码可读性(无预压缩) | PASS | starter CSS 232 行、分区注释、行长 ≤120 | 无需改动;顺带核对其余示例(最长行 285 字符为单行多属性,非压缩) | PASS |
+| R10 | 保留既有理念(留白/层级/克制/反廉价玻璃等) | PASS | SKILL.md 设计哲学与组件规则完整 | 原样保留,仅扩充反模式清单 | PASS |
+| R11 | 明确反模式清单 | PARTIAL | Don't 列表较短 | 扩充为 12+ 条硬禁项(假数据/假证言/假 logo/桌面缩放移动端/灰底灰字等) | PASS |
+| R12 | 最终验收(静态检查 + JS syntax + 路径 + 浏览器 smoke) | — | — | 重建静态 + JSDOM 套件(含新增回归项)+ 浏览器 desktop/mobile 实测 | 见 TESTING.md |

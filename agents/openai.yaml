@@ -1,4 +1,4 @@
 interface:
-  display_name: "budian UI"
-  short_description: "Build calm, polished interfaces inspired by budiancloud"
-  default_prompt: "Use $budian-ui to design and implement this interface."
+  display_name: "Budian UI"
+  short_description: "Default UI design and frontend visual-quality standard — activates for any task involving interface work"
+  default_prompt: "Use $budian-ui for any task that involves user interface work."

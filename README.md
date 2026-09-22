@@ -7,7 +7,7 @@ A quiet, technical, high-contrast UI design system distilled from the [Budian Cl
 ```text
 How it looks  · near-black / off-white, oversized statements, mono metadata, glass only as elevation
 How it behaves· hover lift + accent border, one reveal system, native dialog/details, toasts
-How it adapts · system-first theme (no flash), browser-locale i18n, 320→1920px, reduced-motion, no-JS
+How it adapts · system-first theme (no flash, live OS-following), language-inheriting i18n, 320→1920px, reduced-motion, no-JS
 How it's built· semantic tokens on CSS variables, vanilla web standards, framework-agnostic
 How AI builds · SKILL.md → pick pattern → semantic HTML → tokens → theme/i18n → test matrix
 ```
@@ -23,12 +23,14 @@ How AI builds · SKILL.md → pick pattern → semantic HTML → tokens → them
 **For AI agents (the intended use)**
 
 > Copy the entire `SKILL.md` (plus `tokens/` and `examples/` if your agent can read files) into your agent's skill directory, then prompt:
+>
+> ```
+> Use the budian-ui skill to build a landing page for <your product>.
+> ```
 
-```
-Use the budian-ui skill to build a landing page for <your product>.
-```
+The skill activates on the task type, never on a project or brand name: **any task involving user interface work** — creating or restyling websites, web apps, dashboards, admin panels, landing pages, or any GUI; designing, implementing, modifying, refactoring, or reviewing UI; components, layout, forms, theming, responsive, motion, or accessibility — in any frontend stack (HTML/CSS/JS, React, Next.js, Vue, Svelte, Astro, Flutter Web, …). Purely non-UI work (backend, database, API-only, CLI, infrastructure, CI/CD, build tooling, security analysis, data processing, textual documentation) does not activate it; if such a task includes a user interface, it does.
 
-The agent gets: design philosophy, every token value, theme/i18n/responsive/motion/a11y rules, seven page patterns, a 15-step build workflow and a validation checklist. Agents that support the standard skill format (`.trae/skills/budian-ui/SKILL.md`, `agents/openai.yaml` included) can load it directly.
+The agent gets: design philosophy, every token value, theme/locale/responsive/motion/a11y rules, seven page patterns, a 15-step build workflow, a mandatory UI QA loop, and a validation checklist. Agents that support the standard skill format (`.trae/skills/budian-ui/SKILL.md`, `agents/openai.yaml` included) can load it directly.
 
 ## Design philosophy
 
@@ -48,12 +50,12 @@ Anti-goal: this is deliberately *not* a Tailwind demo, a Vercel/Linear/Stripe cl
 ## Features
 
 - **Design tokens** — color, typography, spacing, radius, shadow, blur, motion, z-index, opacity: [`tokens/tokens.css`](tokens/tokens.css) (canonical), [`tokens/tokens.json`](tokens/tokens.json) (portable), [`tokens/tailwind-example.js`](tokens/tailwind-example.js) (adapter example only)
-- **Automatic light/dark** — no-flash inline bootstrap, three modes (system/light/dark), live OS-following, meta theme-color sync, pure-CSS fallback when JS is off
-- **zh-CN / English** — browser locale detection, `localStorage` persistence, `data-i18n` application, `<html lang>`/title/meta sync, `Intl` date/number formatting
+- **Automatic light/dark** — no-flash inline bootstrap, three modes (system/light/dark), live OS-following while no manual override exists, meta theme-color sync, toggle button state (icon + aria-label + aria-pressed) always matches the resolved theme, pure-CSS fallback when JS is off
+- **Language-agnostic** — inherits the project's language, never imposes one; for multi-language projects: browser locale detection, `localStorage` persistence, `data-i18n` application, `<html lang>`/title/meta sync, `Intl` date/number formatting
 - **Responsive** — mobile-first, Budian's own breakpoint clusters (640/900/1024), tested 320→1920
 - **Motion system** — tokenized durations/easings, IntersectionObserver reveals, count-up, global reduced-motion kill switch
-- **Accessibility** — semantic landmarks, `:focus-visible` rings, 44px targets, keyboard-complete components (tabs, dialogs, drawers), aria only where native semantics fall short
-- **Progressive enhancement** — content visible without JS (`.js`-gated reveals), native `<details>` menus, clipboard fallback
+- **Accessibility** — semantic landmarks, `:focus-visible` rings, `--budian-target-min` (44px) targets on every interactive control, keyboard-complete components (tabs, dialogs, drawers), aria only where native semantics fall short
+- **Progressive enhancement** — content visible by default; reveal hidden states arm only after the runtime successfully initializes, so a failed or missing script can never hide content; native `<details>` menus, clipboard fallback
 
 ## Repository structure
 
@@ -107,7 +109,7 @@ Automatic by default. Manual override persists in `localStorage("budian-theme")`
 
 ### Internationalization
 
-Automatic by default: `zh*` browsers get zh-CN, everyone else gets English. Strings live in a `messages` object; the DOM uses `data-i18n="key"` / `data-i18n-attr="placeholder:key"`. Dates and numbers go through `Intl.DateTimeFormat` / `Intl.NumberFormat`. English runs ~30% longer than Chinese — layouts must flex, never hardcode widths to CJK text.
+Budian UI never imposes a language: it inherits the project's existing language, keeps an existing locale system, and matches `<html lang>` to the content. For genuinely multi-language projects, the reference runtime provides browser locale detection (`zh*` browsers get zh-CN, everyone else gets English), manual switching with `localStorage` persistence, `data-i18n="key"` / `data-i18n-attr="placeholder:key"` application, and `Intl.DateTimeFormat` / `Intl.NumberFormat` formatting. English runs ~30% longer than Chinese — layouts must flex, never hardcode widths to one language's text.
 
 ## Examples
 

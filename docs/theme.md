@@ -82,6 +82,19 @@ media.addEventListener("change", () => {
 - 切换**不刷新页面**;颜色经 token 过渡 250ms 平滑完成。
 - 三态循环按钮:system → light → dark → system;`aria-label` 随状态更新(如"切换为浅色模式")。
 
+### 按钮状态契约(v1.1.0 起)
+
+初始化完成后,主题切换按钮的 **icon、`aria-label`、`aria-pressed`** 三者必须与当前实际主题一致——不允许出现"页面已是深色,按钮仍显示切换深色模式"的状态错误。实现方式:
+
+- 静态 HTML 只写**中性** `aria-label`(如"切换明暗主题"),**不硬编码** `aria-pressed`;
+- 运行时在 init 后写入 `aria-pressed`(与 resolved 主题一致)和方向性 `aria-label`(深色时→"切换为浅色模式");
+- 图标(太阳/月亮)由 CSS 按 `[data-theme]` 切换,首帧即正确;
+- 因此运行时加载失败时,按钮只会留下中性的、不会出错的标签,而不是错误状态。
+
+### 实时跟随的实现细节
+
+监听对象是 `matchMedia("(prefers-color-scheme: dark)")` 的 **change 事件**(系统外观翻转时触发)。注意:不存在 `"(prefers-color-scheme: change)"` 这样的媒体查询——历史上这里出过 bug,写成后者会导致监听永远不触发。用户存在手动偏好(localStorage 有值)时,系统变化不覆盖用户选择。
+
 ## 5. 资产适配清单
 
 | 资产 | 规则 |

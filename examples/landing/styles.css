@@ -115,14 +115,14 @@ main, .topbar, .footer { position: relative; z-index: var(--budian-z-content); }
 .brand__name b { font-weight: 650; color: var(--budian-text-muted); margin-left: 8px; font-size: 13px; }
 
 .topnav { display: flex; gap: var(--budian-space-6); font-size: 14px; color: var(--budian-text-secondary); }
-.topnav a { padding: var(--budian-space-2) 2px; border-radius: var(--budian-radius-sm); transition: color var(--budian-motion-fast) var(--budian-ease-standard); }
+.topnav a { display: inline-flex; align-items: center; min-height: var(--budian-target-min); padding: 0 2px; border-radius: var(--budian-radius-sm); transition: color var(--budian-motion-fast) var(--budian-ease-standard); }
 .topnav a:hover { color: var(--budian-text-primary); }
 
 .topbar__actions { display: flex; align-items: center; gap: var(--budian-space-2); }
 
 .icon-btn {
   display: grid; place-items: center;
-  width: 40px; height: 40px;
+  width: var(--budian-target-min); height: var(--budian-target-min);
   border-radius: var(--budian-radius-md);
   border: 1px solid var(--budian-border);
   background: var(--budian-surface);
@@ -154,7 +154,7 @@ main, .topbar, .footer { position: relative; z-index: var(--budian-z-content); }
               opacity var(--budian-motion-fast) var(--budian-ease-standard);
 }
 .btn:active { transform: scale(.98); }
-.btn--sm { height: 40px; padding: 0 var(--budian-space-4); font-size: 13px; }
+.btn--sm { height: var(--budian-target-min); padding: 0 var(--budian-space-4); font-size: 13px; }
 .btn--solid { background: var(--budian-text-primary); color: var(--budian-bg); }
 .btn--solid:hover { opacity: .88; }
 .btn--ghost {
@@ -331,7 +331,8 @@ main, .topbar, .footer { position: relative; z-index: var(--budian-z-content); }
 .footer__brand b { font-weight: 400; color: var(--budian-text-muted); margin-left: var(--budian-space-3); font-size: var(--budian-text-small-size); }
 .footer .mono-note { margin: 0; }
 
-/* ---- Reveal (gated on .js so no-JS visitors see everything) ------------------ */
+/* ---- Reveal ("js" is added only after the runtime arms the reveal system;
+       no runtime or failed init leaves all content visible) ------------- */
 
 .js .reveal {
   opacity: 0;

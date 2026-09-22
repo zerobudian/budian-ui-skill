@@ -62,14 +62,14 @@ button { font: inherit; color: inherit; }
 .brand__name { font-size: 15px; }
 
 .topnav { display: flex; gap: var(--budian-space-6); font-size: 14px; color: var(--budian-text-secondary); }
-.topnav a { padding: var(--budian-space-2) 2px; transition: color var(--budian-motion-fast) var(--budian-ease-standard); }
+.topnav a { display: inline-flex; align-items: center; min-height: var(--budian-target-min); padding: 0 2px; transition: color var(--budian-motion-fast) var(--budian-ease-standard); }
 .topnav a:hover { color: var(--budian-text-primary); }
 
 .topbar__actions { display: flex; align-items: center; gap: var(--budian-space-2); }
 
 .icon-btn {
   display: grid; place-items: center;
-  width: 40px; height: 40px;
+  width: var(--budian-target-min); height: var(--budian-target-min);
   border-radius: var(--budian-radius-md);
   border: 1px solid var(--budian-border);
   background: var(--budian-surface);
@@ -97,7 +97,7 @@ button { font: inherit; color: inherit; }
               transform var(--budian-motion-fast) var(--budian-ease-standard);
 }
 .btn:active { transform: scale(.98); }
-.btn--sm { height: 40px; padding: 0 var(--budian-space-4); font-size: 13px; }
+.btn--sm { height: var(--budian-target-min); padding: 0 var(--budian-space-4); font-size: 13px; }
 .btn--solid { background: var(--budian-text-primary); color: var(--budian-bg); }
 .btn--solid:hover { opacity: .88; }
 
@@ -203,6 +203,9 @@ button { font: inherit; color: inherit; }
 }
 
 /* ---- Reveal ---- */
+/* Hidden states activate only when <html> has "js", which budian.js adds
+   AFTER the reveal system arms itself. No runtime, no "js", no hiding:
+   content is visible by default (progressive enhancement). */
 
 .js .reveal {
   opacity: 0; transform: translateY(16px);
