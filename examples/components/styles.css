@@ -444,8 +444,23 @@ button { font: inherit; color: inherit; }
 
 /* ---- Skeleton ----------------------------------------------------------------------------------------- */
 
-.skel-card { display: grid; gap: var(--budian-space-3); padding: var(--budian-space-5); border: 1px solid var(--budian-border); border-radius: var(--budian-radius-lg); }
-.skel { height: 14px; border-radius: 7px; background: linear-gradient(90deg, var(--budian-bg-inset) 25%, color-mix(in srgb, var(--budian-text-primary) 7%, var(--budian-bg-inset)) 50%, var(--budian-bg-inset) 75%); background-size: 200% 100%; animation: budian-skel 1.4s ease infinite; }
+.skel-card {
+  display: grid;
+  gap: var(--budian-space-3);
+  padding: var(--budian-space-5);
+  border: 1px solid var(--budian-border);
+  border-radius: var(--budian-radius-lg);
+}
+.skel {
+  height: 14px;
+  border-radius: 7px;
+  background: linear-gradient(90deg,
+    var(--budian-bg-inset) 25%,
+    color-mix(in srgb, var(--budian-text-primary) 7%, var(--budian-bg-inset)) 50%,
+    var(--budian-bg-inset) 75%);
+  background-size: 200% 100%;
+  animation: budian-skel 1.4s ease infinite;
+}
 .skel--title { width: 55%; height: 20px; }
 .skel--short { width: 35%; }
 @keyframes budian-skel { to { background-position: -200% 0; } }
